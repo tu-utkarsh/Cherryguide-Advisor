@@ -1,0 +1,877 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+    <title>CherryGuide</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <!-- Confetti -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
+
+    <!-- Bootstrap 5.3.3 -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/app.css">
+
+    <!-- Custom JavaScript -->
+    <script src="js/app.js"></script>
+
+    <!-- Favicon -->
+    <link rel="icon" href="images/TU100x100.png">
+</head>
+
+<body>
+
+    <!-- 🔹 Top Navigation Bar -->
+    <nav class="navbar navbar-expand-md navbar-dark fixed-top secured" role="navigation" aria-label="Main Navigation">
+        <div class="container-fluid">
+            <a class="navbar-brand d-flex align-items-center" href="#">
+                <img alt="Temple University logo" src="images/TU100x100.png"
+                    style="width:40px; height:40px; border-radius:8px;">
+                <span class="ms-2">Cherry<span class="text-temple-red">Guide</span></span>
+            </a>
+
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#collapsibleNavbar" aria-controls="collapsibleNavbar" aria-expanded="false"
+                aria-label="Toggle navigation menu">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="collapsibleNavbar">
+                <ul class="navbar-nav ms-auto">
+
+                    <li class="nav-item">
+                        <a id="link-dashboard" class="nav-link" href="#" aria-label="Go to Dashboard">
+                            <i class="fa-solid fa-house-laptop"></i> Dashboard
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a id="link-explore" class="nav-link" href="#" aria-label="Explore Campus">
+                            <i class="fa-solid fa-map-location-dot"></i> Explore
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a id="link-tools" class="nav-link" href="#" aria-label="Tools and Calculators">
+                            <i class="fa-solid fa-toolbox"></i> Tools
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a id="link-ai" class="nav-link" href="#" aria-label="AI Advisor">
+                            <i class="fa-solid fa-robot"></i> AI Advisor
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a id="link-game" class="nav-link" href="#" aria-label="Play HuntZilla Game">
+                            <i class="fa-solid fa-gamepad"></i> HuntZilla
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a id="link-logout" class="nav-link" href="#" aria-label="Logout">
+                            <i class="fa-solid fa-right-from-bracket"></i> Logout
+                        </a>
+                    </li>
+
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 🔹 Main Container -->
+    <div class="container-fluid" role="main">
+        <div class="row">
+            <div class="col-md-2 d-none d-md-block">&nbsp;</div>
+
+            <!-- ============================================
+                 LOGIN SECTION
+            ============================================ -->
+            <div class="col-12 col-lg-10 mx-auto content-wrapper login-wrapper" id="div-login" style="display:none;">
+                <div class="row g-0 align-items-center">
+                    <!-- Left Side: Branding & Info -->
+                    <div class="col-12 col-md-6 login-hero">
+                        <div class="login-hero-content">
+                            <!-- Logo Placeholder -->
+                            <div class="login-logo-placeholder">
+                                <i class="fa-solid fa-graduation-cap"></i>
+                            </div>
+                            
+                            <h1 class="login-title">
+                                Cherry<span class="text-temple-red">Guide</span>
+                            </h1>
+                            <span class="badge-temple mb-4">Temple Edition</span>
+                            
+                            <p class="login-tagline">Your all-in-one campus companion for Temple University.</p>
+                            
+                            <ul class="login-features">
+                                <li>
+                                    <i class="fa-solid fa-map-location-dot"></i>
+                                    <span><strong>Explore Campus</strong> – Find buildings, food spots, and offices with interactive maps</span>
+                                </li>
+                                <li>
+                                    <i class="fa-solid fa-calculator"></i>
+                                    <span><strong>Smart Tools</strong> – GPA calculator, budget planner, and semester planning</span>
+                                </li>
+                                <li>
+                                    <i class="fa-solid fa-robot"></i>
+                                    <span><strong>AI Advisor</strong> – Get instant answers about Temple life and policies</span>
+                                </li>
+                                <li>
+                                    <i class="fa-solid fa-gamepad"></i>
+                                    <span><strong>HuntZilla</strong> – Play the campus scavenger hunt and compete on the leaderboard</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <!-- Right Side: Login Form -->
+                    <div class="col-12 col-md-6 login-form-side">
+                        <div class="login-form-container">
+                            <h2 class="login-form-title">Welcome Back</h2>
+                            <p class="text-muted mb-4">Sign in to access your dashboard.</p>
+
+                            <form id="form-login" aria-label="Login Form">
+                                <label for="username">Username</label>
+                                <input type="text" name="username" id="username" class="form-control" 
+                                       autocomplete="username" aria-label="Username" placeholder="Enter your username" required>
+
+                                <label for="password">Password</label>
+                                <input type="password" name="password" id="password" class="form-control"
+                                       autocomplete="current-password" aria-label="Password" placeholder="Enter your password" required>
+
+                                <div id="login_message" class="mt-3"></div>
+
+                                <div class="text-center mt-4">
+                                    <button type="button" id="btnLogin" class="btn btn-primary w-100">
+                                        <i class="fas fa-sign-in-alt me-2"></i>Login
+                                    </button>
+                                </div>
+
+                                <div class="text-center mt-3">
+                                    <span class="text-muted me-1">New here?</span>
+                                    <a href="#" id="link-signup">Create an account</a>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ============================================
+                 SIGNUP SECTION
+            ============================================ -->
+            <div class="col-12 col-md-8 mx-auto content-wrapper" id="div-signup" style="display:none;">
+                <h2>Create an Account</h2>
+                <p class="text-muted mb-4">Join CherryGuide and unlock your campus toolkit.</p>
+
+                <form id="form-signup" aria-label="Signup Form">
+                    <label for="fname">First Name:</label>
+                    <input type="text" name="fname" id="fname" class="form-control" required>
+
+                    <label for="lname">Last Name:</label>
+                    <input type="text" name="lname" id="lname" class="form-control" required>
+
+                    <label for="new_username">Username:</label>
+                    <input type="text" name="username" id="new_username" class="form-control" 
+                           autocomplete="username" required>
+
+                    <label for="new_password">Password:</label>
+                    <input type="password" name="password" id="new_password" class="form-control"
+                           autocomplete="new-password" required>
+
+                    <div id="signup_message" class="mt-3"></div>
+
+                    <div class="text-center mt-4">
+                        <button type="button" id="btnSignup" class="btn btn-primary w-100">
+                            <i class="fas fa-user-plus me-2"></i>Create Account
+                        </button>
+                    </div>
+
+                    <div class="text-center mt-3">
+                        <button type="button" id="btnSignupBack" class="btn btn-secondary w-100">
+                            <i class="fas fa-arrow-left me-2"></i>Back to Login
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+            <!-- ============================================
+                 DASHBOARD (DEFAULT LANDING PAGE)
+            ============================================ -->
+            <div class="col-12 col-md-8 mx-auto content-wrapper secured" id="div-dashboard" style="display:none;">
+                <h2 class="mb-2">Welcome to CherryGuide</h2>
+                <p class="text-muted mb-4">
+                    Your personalized Temple companion—learn campus spots, plan your semester, manage your budget,
+                    calculate GPA, chat with AI, or explore the HuntZilla challenge.
+                </p>
+
+                <div class="row g-3">
+
+                    <!-- Explore Campus Tile -->
+                    <div class="col-12 col-md-6">
+                        <div class="cherry-tile" id="btnGoExplore" role="button" tabindex="0" 
+                             aria-label="Explore Campus">
+                            <i class="fa-solid fa-map-location-dot cherry-tile-icon"></i>
+                            <h4>Explore Campus</h4>
+                            <p class="mb-0">Learn about academic buildings, food spots, offices, and travel routes.</p>
+                        </div>
+                    </div>
+
+                    <!-- Tools & Calculators Tile -->
+                    <div class="col-12 col-md-6">
+                        <div class="cherry-tile" id="btnGoTools" role="button" tabindex="0" 
+                             aria-label="Tools and Calculators">
+                            <i class="fa-solid fa-toolbox cherry-tile-icon"></i>
+                            <h4>Tools & Calculators</h4>
+                            <p class="mb-0">GPA Calculator, Budget Estimator, and more microservices.</p>
+                        </div>
+                    </div>
+
+                    <!-- AI Advisor Tile -->
+                    <div class="col-12 col-md-6">
+                        <div class="cherry-tile" id="btnGoAI" role="button" tabindex="0" 
+                             aria-label="AI Advisor">
+                            <i class="fa-solid fa-robot cherry-tile-icon"></i>
+                            <h4>AI Advisor</h4>
+                            <p class="mb-0">Ask anything about Temple, academics, requirements, and student life.</p>
+                        </div>
+                    </div>
+
+                    <!-- HuntZilla Game Tile -->
+                    <div class="col-12 col-md-6">
+                        <div class="cherry-tile" id="btnGoGame" role="button" tabindex="0" 
+                             aria-label="Play HuntZilla Game">
+                            <i class="fa-solid fa-gamepad cherry-tile-icon"></i>
+                            <h4>HuntZilla Game</h4>
+                            <p class="mb-0">Play the classic scavenger hunt game and climb the leaderboard.</p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- ============================================
+                 EXPLORE CAMPUS SECTION
+            ============================================ -->
+            <div class="col-12 col-md-8 mx-auto content-wrapper secured" id="div-explore" style="display:none;">
+                <h2>Explore Campus</h2>
+                <p class="text-muted mb-4">
+                    This page is designed to help you navigate Temple University's campus and find key locations. Whether you're looking for a place to study, grab a meal, or handle administrative tasks, you'll find all the essential buildings and services here.
+                </p>
+                <!-- Explore Tab Navigation -->
+                <nav class="explore-tabs" aria-label="Explore categories">
+                    <button class="explore-tab active" data-target="explore-academics">
+                        <i class="fa-solid fa-graduation-cap me-2"></i>Academic Buildings
+                    </button>
+                    <button class="explore-tab" data-target="explore-food">
+                        <i class="fa-solid fa-utensils me-2"></i>Food Spots
+                    </button>
+                    <button class="explore-tab" data-target="explore-offices">
+                        <i class="fa-solid fa-building me-2"></i>Campus Offices
+                    </button>
+                    <button class="explore-tab" data-target="explore-transportation">
+                        <i class="fa-solid fa-bus me-2"></i>Transportation
+                    </button>
+                </nav>
+
+                <div class="explore-article explore-panel active" id="explore-academics">
+                    <div class="explore-article-meta">
+                        <span class="badge-temple me-2">Academic Buildings</span>
+                        <small class="text-muted">Popular study spots and lecture halls.</small>
+                    </div>
+                    <h3 class="mt-2">Academic Buildings</h3>
+                    <p class="text-muted">Open the map from each card; image areas are ready for future campus photos.</p>
+
+                    <div class="row g-3 explore-cta-grid">
+                        <div class="col-12 col-md-6">
+                            <div class="explore-cta-card">
+                                <a class="explore-photo" href="https://maps.google.com/?q=Annenberg+Hall+Temple+University" target="_blank" rel="noopener" aria-label="Open map for Annenberg Hall">
+                                    <span><img src="images/annenberg.jpg"></span>
+                                </a>
+                                <div class="explore-cta-body">
+                                    <h4>Annenberg Hall</h4>
+                                    <p class="text-muted">Studios, classrooms, and the anchor for Klein College media.</p>
+                                    <a class="btn btn-primary btn-sm" href="https://maps.google.com/?q=Annenberg+Hall+Temple+University" target="_blank" rel="noopener">
+                                        <i class="fa-solid fa-location-arrow me-2"></i>View on Map
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-12 col-md-6">
+                            <div class="explore-cta-card">
+                                <a class="explore-photo" href="https://maps.google.com/?q=Alter+Hall+Temple+University" target="_blank" rel="noopener" aria-label="Open map for Alter Hall">
+                                    <span><img src="images/Alter.jpeg"></span>
+                                </a>
+                                <div class="explore-cta-body">
+                                    <h4>Alter Hall</h4>
+                                    <p class="text-muted">Fox School of Business hub with classrooms, labs, and events.</p>
+                                    <a class="btn btn-primary btn-sm" href="https://maps.google.com/?q=Alter+Hall+Temple+University" target="_blank" rel="noopener">
+                                        <i class="fa-solid fa-location-arrow me-2"></i>View on Map
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-12 col-md-6">
+                            <div class="explore-cta-card">
+                                <a class="explore-photo" href="https://maps.google.com/?q=Science+Education+and+Research+Center+Temple+University" target="_blank" rel="noopener" aria-label="Open map for SERC">
+                                    <span><img src="images/serc.jpg"></span>
+                                </a>
+                                <div class="explore-cta-body">
+                                    <h4>Science Education & Research Center</h4>
+                                    <p class="text-muted">Labs and classrooms for science and engineering majors.</p>
+                                    <a class="btn btn-primary btn-sm" href="https://maps.google.com/?q=Science+Education+and+Research+Center+Temple+University" target="_blank" rel="noopener">
+                                        <i class="fa-solid fa-location-arrow me-2"></i>View on Map
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-12 col-md-6">
+                            <div class="explore-cta-card">
+                                <a class="explore-photo" href="https://maps.google.com/?q=Charles+Library+Temple+University" target="_blank" rel="noopener" aria-label="Open map for Charles Library">
+                                    <span><img src="images/charles.jpg"></span>
+                                </a>
+                                <div class="explore-cta-body">
+                                    <h4>Charles Library</h4>
+                                    <p class="text-muted">Striking architecture, study space, and tech resources.</p>
+                                    <a class="btn btn-primary btn-sm" href="https://maps.google.com/?q=Charles+Library+Temple+University" target="_blank" rel="noopener">
+                                        <i class="fa-solid fa-location-arrow me-2"></i>View on Map
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="explore-article explore-panel" id="explore-food">
+                    <div class="explore-article-meta">
+                        <span class="badge-temple me-2">Food Spots</span>
+                        <small class="text-muted">Dining halls, grab-and-go, and campus favorites.</small>
+                    </div>
+                    <h3 class="mt-2">Food Spots</h3>
+                    <p class="text-muted">Tap a card to jump to maps. Replace placeholders with your food photos later.</p>
+
+                    <div class="row g-3 explore-cta-grid">
+                        <div class="col-12 col-md-6">
+                            <div class="explore-cta-card">
+                                <a class="explore-photo" href="https://maps.google.com/?q=Morgan+Dining+Hall+Temple+University" target="_blank" rel="noopener" aria-label="Open map for Morgan Dining Hall">
+                                    <span><img src="images/morgan.webp"></span>
+                                </a>
+                                <div class="explore-cta-body">
+                                    <h4>Morgan Dining Hall</h4>
+                                    <p class="text-muted">Meal swipes, late-night bites, and plenty of seating.</p>
+                                    <a class="btn btn-primary btn-sm" href="https://maps.google.com/?q=Morgan+Dining+Hall+Temple+University" target="_blank" rel="noopener">
+                                        <i class="fa-solid fa-location-arrow me-2"></i>View on Map
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-12 col-md-6">
+                            <div class="explore-cta-card">
+                                <a class="explore-photo" href="https://maps.google.com/?q=Student+Center+Food+Court+Temple+University" target="_blank" rel="noopener" aria-label="Open map for Student Center Food Court">
+                                    <span><img src="images/scs.jpeg"></span>
+                                </a>
+                                <div class="explore-cta-body">
+                                    <h4>Student Center Food Court</h4>
+                                    <p class="text-muted">Food court variety plus seating in the Student Center South.</p>
+                                    <a class="btn btn-primary btn-sm" href="https://maps.google.com/?q=Student+Center+Food+Court+Temple+University" target="_blank" rel="noopener">
+                                        <i class="fa-solid fa-location-arrow me-2"></i>View on Map
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-12 col-md-6">
+                            <div class="explore-cta-card">
+                                <a class="explore-photo" href="https://maps.google.com/?q=Richie%27s+Cafe+Temple+University" target="_blank" rel="noopener" aria-label="Open map for Richie's Cafe">
+                                    <span><img src="images/richie.jpg"></span>
+                                </a>
+                                <div class="explore-cta-body">
+                                    <h4>Richie's Cafe</h4>
+                                    <p class="text-muted">Campus classic for coffee, sandwiches, and morning crowds.</p>
+                                    <a class="btn btn-primary btn-sm" href="https://maps.google.com/?q=Richie%27s+Cafe+Temple+University" target="_blank" rel="noopener">
+                                        <i class="fa-solid fa-location-arrow me-2"></i>View on Map
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-12 col-md-6">
+                            <div class="explore-cta-card">
+                                <a class="explore-photo" href="https://maps.google.com/?q=Saxbys+Liacouras+Walk+Temple+University" target="_blank" rel="noopener" aria-label="Open map for Saxbys Liacouras Walk">
+                                    <span><img src="images/saxbys.avif"></span>
+                                </a>
+                                <div class="explore-cta-body">
+                                    <h4>Saxbys @ Liacouras Walk</h4>
+                                    <p class="text-muted">Student-run cafe for espresso, snacks, and study vibes.</p>
+                                    <a class="btn btn-primary btn-sm" href="https://maps.google.com/?q=Saxbys+Liacouras+Walk+Temple+University" target="_blank" rel="noopener">
+                                        <i class="fa-solid fa-location-arrow me-2"></i>View on Map
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="explore-article explore-panel" id="explore-offices">
+                    <div class="explore-article-meta">
+                        <span class="badge-temple me-2">Campus Offices</span>
+                        <small class="text-muted">Help desks, advising, and student services.</small>
+                    </div>
+                    <h3 class="mt-2">Campus Offices</h3>
+                    <p class="text-muted">Use the CTAs to jump to maps; update the image blocks when you have office photos.</p>
+
+                    <div class="row g-3 explore-cta-grid">
+                        <div class="col-12 col-md-6">
+                            <div class="explore-cta-card">
+                                <a class="explore-photo" href="https://maps.google.com/?q=Student+Center+South+Temple+University" target="_blank" rel="noopener" aria-label="Open map for Student Center South">
+                                    <span><img src="images/scs.jpeg"></span>
+                                </a>
+                                <div class="explore-cta-body">
+                                    <h4>Student Center South</h4>
+                                    <p class="text-muted">Student activities, lounge space, and info desks under one roof.</p>
+                                    <a class="btn btn-primary btn-sm" href="https://maps.google.com/?q=Student+Center+South+Temple+University" target="_blank" rel="noopener">
+                                        <i class="fa-solid fa-location-arrow me-2"></i>View on Map
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-12 col-md-6">
+                            <div class="explore-cta-card">
+                                <a class="explore-photo" href="https://maps.google.com/?q=ISSS+Temple+University" target="_blank" rel="noopener" aria-label="Open map for ISSS office">
+                                    <span><img src="images/ISSS.jpg"></span>
+                                </a>
+                                <div class="explore-cta-body">
+                                    <h4>ISSS Office</h4>
+                                    <p class="text-muted">Support for international students, visas, and travel questions.</p>
+                                    <a class="btn btn-primary btn-sm" href="https://maps.google.com/?q=ISSS+Temple+University" target="_blank" rel="noopener">
+                                        <i class="fa-solid fa-location-arrow me-2"></i>View on Map
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-12 col-md-6">
+                            <div class="explore-cta-card">
+                                <a class="explore-photo" href="https://maps.google.com/?q=Carnell+Hall+Temple+University" target="_blank" rel="noopener" aria-label="Open map for Carnell Hall">
+                                    <span><img src="images/carnell.jpg"></span>
+                                </a>
+                                <div class="explore-cta-body">
+                                    <h4>Carnell Hall</h4>
+                                    <p class="text-muted">Registrar, bursar, and student financial services in one stop.</p>
+                                    <a class="btn btn-primary btn-sm" href="https://maps.google.com/?q=Carnell+Hall+Temple+University" target="_blank" rel="noopener">
+                                        <i class="fa-solid fa-location-arrow me-2"></i>View on Map
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-12 col-md-6">
+                            <div class="explore-cta-card">
+                                <a class="explore-photo" href="https://maps.google.com/?q=Temple+University+Career+Center" target="_blank" rel="noopener" aria-label="Open map for Career Center at Mitten Hall">
+                                    <span><img src="images/mitten.jpg"></span>
+                                </a>
+                                <div class="explore-cta-body">
+                                    <h4>Career Center (Mitten Hall)</h4>
+                                    <p class="text-muted">Resume reviews, internships, and interview prep support.</p>
+                                    <a class="btn btn-primary btn-sm" href="https://maps.google.com/?q=Temple+University+Career+Center" target="_blank" rel="noopener">
+                                        <i class="fa-solid fa-location-arrow me-2"></i>View on Map
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="explore-article explore-panel" id="explore-transportation">
+                    <div class="explore-article-meta">
+                        <span class="badge-temple me-2">Transportation</span>
+                        <small class="text-muted">Rail, subway, shuttles, and parking.</small>
+                    </div>
+                    <h3 class="mt-2">Transportation</h3>
+                    <p class="text-muted">Click any option to open directions; swap in shuttle or parking map embeds later.</p>
+
+                    <div class="row g-3 explore-cta-grid">
+                        <div class="col-12 col-md-6">
+                            <div class="explore-cta-card">
+                                <a class="explore-photo" href="https://maps.google.com/?q=Temple+University+Station" target="_blank" rel="noopener" aria-label="Open map for Temple University Station">
+                                    <span><img src="images/tustation.jpg"></span>
+                                </a>
+                                <div class="explore-cta-body">
+                                    <h4>Temple University Station</h4>
+                                    <p class="text-muted">Regional Rail stop for trips to Center City and suburbs.</p>
+                                    <a class="btn btn-primary btn-sm" href="https://maps.google.com/?q=Temple+University+Station" target="_blank" rel="noopener">
+                                        <i class="fa-solid fa-location-arrow me-2"></i>View on Map
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-12 col-md-6">
+                            <div class="explore-cta-card">
+                                <a class="explore-photo" href="https://maps.google.com/?q=Cecil+B+Moore+Station" target="_blank" rel="noopener" aria-label="Open map for Cecil B. Moore Station">
+                                    <span><img src="images/ccbstation.jpg"></span>
+                                </a>
+                                <div class="explore-cta-body">
+                                    <h4>Cecil B. Moore BSL Station</h4>
+                                    <p class="text-muted">Broad Street Line subway for quick rides down to City Hall.</p>
+                                    <a class="btn btn-primary btn-sm" href="https://maps.google.com/?q=Cecil+B+Moore+Station" target="_blank" rel="noopener">
+                                        <i class="fa-solid fa-location-arrow me-2"></i>View on Map
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-12 col-md-6">
+                            <div class="explore-cta-card">
+                                <a class="explore-photo" href="https://maps.google.com/?q=Liacouras+Garage+Temple+University" target="_blank" rel="noopener" aria-label="Open map for Liacouras Garage">
+                                    <span><img src="images/parking.webp"></span>
+                                </a>
+                                <div class="explore-cta-body">
+                                    <h4>Liacouras Garage</h4>
+                                    <p class="text-muted">Central parking option near Liacouras Center and Alter Hall.</p>
+                                    <a class="btn btn-primary btn-sm" href="https://maps.google.com/?q=Liacouras+Garage+Temple+University" target="_blank" rel="noopener">
+                                        <i class="fa-solid fa-location-arrow me-2"></i>View on Map
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-12 col-md-6">
+                            <div class="explore-cta-card">
+                                <a class="explore-photo" href="https://maps.google.com/?q=Polett+Walk+and+12th+St+Temple+University" target="_blank" rel="noopener" aria-label="Open map for Campus Shuttle Stop">
+                                    <span><img src="images/polett.jpg"></span>
+                                </a>
+                                <div class="explore-cta-body">
+                                    <h4>Shuttle Pickup at Polett</h4>
+                                    <p class="text-muted">Hub at 12th & Polett Walk for night shuttles and loop routes.</p>
+                                    <a class="btn btn-primary btn-sm" href="https://maps.google.com/?q=Polett+Walk+and+12th+St+Temple+University" target="_blank" rel="noopener">
+                                        <i class="fa-solid fa-location-arrow me-2"></i>View on Map
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                  
+                </div>
+            </div>
+
+            <!-- ============================================
+                 TOOLS SECTION (LANDING PAGE FOR TOOLS)
+            ============================================ -->
+            <div class="col-12 col-md-8 mx-auto content-wrapper secured" id="div-tools" style="display:none;">
+                <h2>Tools & Calculators</h2>
+                <p class="text-muted mb-4">Choose a microservice to help plan your semester.</p>
+
+                <div class="row g-3">
+
+                    <!-- GPA Calculator -->
+                    <div class="col-12 col-md-6">
+                        <div class="cherry-tile" id="btnGoGPA" role="button" tabindex="0" 
+                             aria-label="GPA Calculator">
+                            <i class="fa-solid fa-calculator cherry-tile-icon"></i>
+                            <h4>GPA Calculator</h4>
+                            <p class="mb-0">Estimate your GPA using course credits and expected grades.</p>
+                        </div>
+                    </div>
+
+                    <!-- Budget Estimator -->
+                    <div class="col-12 col-md-6">
+                        <div class="cherry-tile" id="btnGoBudget" role="button" tabindex="0" 
+                             aria-label="Budget Estimator">
+                            <i class="fa-solid fa-wallet cherry-tile-icon"></i>
+                            <h4>Budget Estimator</h4>
+                            <p class="mb-0">Plan your expenses before moving onto campus.</p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- ============================================
+                 GPA CALCULATOR SECTION
+            ============================================ -->
+            <div class="col-12 col-md-8 mx-auto content-wrapper secured" id="div-gpa" style="display:none;">
+                <h2><i class="fas fa-calculator me-2" style="color: var(--temple-red);"></i>GPA Calculator</h2>
+                <p class="text-muted mb-4">Enter your course grades to estimate your cumulative GPA.</p>
+
+                <form id="form-gpa">
+                    <label for="gpa_current">Current GPA:</label>
+                    <input type="number" step="0.01" min="0" max="4" id="gpa_current" class="form-control" 
+                           placeholder="e.g., 3.50">
+
+                    <label for="gpa_credits">Total Credits Completed:</label>
+                    <input type="number" min="0" id="gpa_credits" class="form-control" 
+                           placeholder="e.g., 45">
+
+                    <label for="gpa_expected">Expected Grades (comma separated):</label>
+                    <input type="text" id="gpa_expected" class="form-control" 
+                           placeholder="e.g., A, B+, A-, C">
+                    <small class="form-text text-muted">Supported grades: A, A-, B+, B, B-, C+, C, C-, D, F</small>
+
+                    <div id="gpa_result" class="mt-3"></div>
+
+                    <div class="text-center mt-4">
+                        <button type="button" id="btnCalcGPA" class="btn btn-primary w-100">
+                            <i class="fas fa-calculator me-2"></i>Calculate GPA
+                        </button>
+                    </div>
+
+                    <div class="text-center mt-3">
+                        <button type="button" class="btn btn-secondary w-100" onclick="showSection('div-tools')">
+                            <i class="fas fa-arrow-left me-2"></i>Back to Tools
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+            <!-- ============================================
+                 BUDGET ESTIMATOR SECTION
+            ============================================ -->
+            <div class="col-12 col-md-8 mx-auto content-wrapper secured" id="div-budget" style="display:none;">
+                <h2><i class="fas fa-wallet me-2" style="color: var(--temple-red);"></i>Budget Estimator</h2>
+                <p class="text-muted mb-4">Plan your semester expenses with a simple breakdown.</p>
+
+                <form id="form-budget">
+                    <label for="bdg_rent">Rent / Housing (per month):</label>
+                    <input type="number" min="0" id="bdg_rent" class="form-control" 
+                           placeholder="e.g., 800">
+
+                    <label for="bdg_food">Food (per month):</label>
+                    <input type="number" min="0" id="bdg_food" class="form-control" 
+                           placeholder="e.g., 300">
+
+                    <label for="bdg_books">Books / Supplies (per semester):</label>
+                    <input type="number" min="0" id="bdg_books" class="form-control" 
+                           placeholder="e.g., 400">
+
+                    <label for="bdg_income">Income (per month):</label>
+                    <input type="number" min="0" id="bdg_income" class="form-control" 
+                           placeholder="e.g., 1500">
+
+                    <div class="text-center mt-4">
+                        <button type="button" id="btnCalcBudget" class="btn btn-primary w-100">
+                            <i class="fas fa-chart-pie me-2"></i>Calculate Budget
+                        </button>
+                    </div>
+
+                    <canvas id="budgetChart" style="max-height:300px;margin-top:30px;"></canvas>
+                    <div id="budget_result" class="mt-3"></div>
+
+                    <div class="text-center mt-3">
+                        <button type="button" class="btn btn-secondary w-100" onclick="showSection('div-tools')">
+                            <i class="fas fa-arrow-left me-2"></i>Back to Tools
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+            <!-- ============================================
+                 AI ADVISOR SECTION
+            ============================================ -->
+            <div class="col-12 col-md-8 mx-auto content-wrapper secured" id="div-ai" style="display:none;">
+                <h2><i class="fas fa-robot me-2" style="color: var(--temple-red);"></i>AI Advisor</h2>
+                <p class="text-muted mb-4">Ask anything about Temple, academics, ISSS, housing, or campus life.</p>
+
+                <!-- Rate limit indicator -->
+                <div id="ai_rate_limit" class="alert alert-info d-none mb-3">
+                    <i class="fas fa-clock me-2"></i>
+                    <span id="ai_rate_count">10</span>/10 advisor queries remaining this hour
+                </div>
+
+                <div id="aiChatBox">
+                    <div id="ai_history">
+                        <div class="text-center text-muted py-5" id="ai_empty_state">
+                            <i class="fas fa-comments fa-3x mb-3 opacity-50"></i>
+                            <p class="mb-0">Ask CherryGuide AI anything about Temple University!</p>
+                            <small>Try: "How can I manage time as a commuting student?" or "Tell me about ISSS services"</small>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="ai_message" class="mt-3"></div>
+
+                <div class="input-group mt-3">
+                    <input type="text" id="ai_question" class="form-control" 
+                           placeholder="Ask CherryGuide AI..." aria-label="Ask a question">
+                    <button class="btn btn-primary" id="btnAskAI" type="button" aria-label="Send question">
+                        <i class="fa-solid fa-paper-plane"></i>
+                    </button>
+                </div>
+
+                <div class="text-center mt-3">
+                    <small class="text-muted">
+                        <i class="fas fa-info-circle me-1"></i>
+                        Powered by AWS Bedrock. Answers are AI-generated — verify important info with Temple offices.
+                    </small>
+                </div>
+            </div>
+
+            <!-- ============================================
+                 HUNTZILLA GAME SECTION
+            ============================================ -->
+            <div class="col-12 col-md-8 mx-auto content-wrapper secured" id="div-game" style="display:none;">
+                <h2><i class="fas fa-gamepad me-2" style="color: var(--temple-red);"></i>HuntZilla Mini-Game</h2>
+                <p class="text-muted mb-4">Answer three campus-related questions as fast as you can!</p>
+
+                <div id="intro" class="alert alert-info mb-4"></div>
+
+                <!-- Question 1 -->
+                <div class="game-question-block mb-4">
+                    <div class="game-question" id="q1"></div>
+                    <input type="text" id="a1" class="form-control my-2" placeholder="Your answer...">
+                    <div id="msg1" class="game-feedback mb-2"></div>
+                    <button type="button" id="btnCheck1" class="btn btn-primary w-100">
+                        <i class="fas fa-check me-2"></i>Submit Answer
+                    </button>
+                </div>
+
+                <!-- Question 2 -->
+                <div class="game-question-block mb-4">
+                    <div class="game-question" id="q2"></div>
+                    <input type="text" id="a2" class="form-control my-2" placeholder="Your answer...">
+                    <div id="msg2" class="game-feedback mb-2"></div>
+                    <button type="button" id="btnCheck2" class="btn btn-primary w-100">
+                        <i class="fas fa-check me-2"></i>Submit Answer
+                    </button>
+                </div>
+
+                <!-- Question 3 -->
+                <div class="game-question-block mb-4">
+                    <div class="game-question" id="q3"></div>
+                    <input type="text" id="a3" class="form-control my-2" placeholder="Your answer...">
+                    <div id="msg3" class="game-feedback mb-2"></div>
+                    <button type="button" id="btnCheck3" class="btn btn-primary w-100">
+                        <i class="fas fa-check me-2"></i>Submit Answer
+                    </button>
+                </div>
+
+                <div id="endgame_message" class="mt-3"></div>
+
+                <div class="text-center mt-4">
+                    <button type="button" id="btnEndGame" class="btn btn-success w-100">
+                        <i class="fas fa-flag-checkered me-2"></i>Finish Game
+                    </button>
+                </div>
+
+                <div class="text-center mt-3">
+                    <button type="button" id="btnQuit2" class="btn btn-secondary w-100">
+                        <i class="fas fa-times me-2"></i>Quit Game
+                    </button>
+                </div>
+            </div>
+
+            <!-- ============================================
+                 LEADERBOARD SECTION
+            ============================================ -->
+            <div class="col-12 col-md-8 mx-auto content-wrapper secured" id="div-leaderboard" style="display:none;">
+                <h2 class="text-center"><i class="fas fa-trophy me-2" style="color: var(--temple-gold);"></i>Leaderboard</h2>
+                <p class="text-center text-muted mb-4">Top 5 fastest HuntZilla players</p>
+
+                <!-- Podium -->
+                <div id="podiumContainer" style="display:none;">
+                    <div class="d-flex justify-content-center align-items-end mb-4" style="gap: 15px;">
+                        
+                        <!-- Second Place -->
+                        <div class="podium-box second text-center">
+                            <div class="podium-rank mb-2">🥈</div>
+                            <div class="podium-user fw-bold" id="podium2">-</div>
+                        </div>
+
+                        <!-- First Place -->
+                        <div class="podium-box first text-center">
+                            <div class="podium-rank mb-2">🥇</div>
+                            <div class="podium-user fw-bold" id="podium1">-</div>
+                        </div>
+
+                        <!-- Third Place -->
+                        <div class="podium-box third text-center">
+                            <div class="podium-rank mb-2">🥉</div>
+                            <div class="podium-user fw-bold" id="podium3">-</div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- Bar Chart -->
+                <h4 class="text-center mt-4 mb-3">Top 5 Fastest Times</h4>
+                <canvas id="leaderboardBarChart" style="max-height: 350px; margin-bottom:30px;"></canvas>
+
+                <div id="leaderboard_message" class="mt-3"></div>
+
+                <div class="text-center mt-4">
+                    <button type="button" id="btnHome" class="btn btn-primary w-100">
+                        <i class="fas fa-sign-out-alt me-2"></i>Finish & Logout
+                    </button>
+                </div>
+            </div>
+
+            <!-- ============================================
+                 GAME COMPLETION CONFIRMATION
+            ============================================ -->
+            <div class="col-12 col-md-8 mx-auto content-wrapper secured" id="div-confirm" style="display:none;">
+                <h2 class="text-center">🎉 Game Complete!</h2>
+                <div id="confirm_message" class="text-center my-4"></div>
+                <div class="text-center mt-4">
+                    <button type="button" id="btnViewLeaderboardQuit" class="btn btn-success w-100 mb-3">
+                        <i class="fas fa-trophy me-2"></i>View Leaderboard & Quit
+                    </button>
+                    <button type="button" id="btnQuit3" class="btn btn-secondary w-100">
+                        <i class="fas fa-sign-out-alt me-2"></i>Finish & Logout
+                    </button>
+                </div>
+            </div>
+
+            <div class="col-md-2 d-none d-md-block">&nbsp;</div>
+        </div> <!-- end row -->
+
+        <!-- Spacer -->
+        <div class="row">
+            <div class="col-md-12 text-center">&nbsp;</div>
+        </div>
+
+    </div> <!-- end container -->
+
+    <!-- Footer -->
+    <footer role="contentinfo" aria-label="Footer">
+        <div class="container-fluid">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <span>&copy; 2025 CherryGuide</span>
+                    <span class="footer-divider">•</span>
+                    <span>Student Companion Platform</span>
+                </div>
+                <div class="footer-contact">
+                    <span>Built by <strong>Utkarsh Vaid</strong></span>
+                    <span class="footer-divider">•</span>
+                    <a href="mailto:utkarshvaid289@gmail.com">
+                        <i class="fa-solid fa-envelope me-1"></i>utkarshvaid289@gmail.com
+                    </a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+</body>
+
+</html>
