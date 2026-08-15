@@ -57,7 +57,14 @@ let getUserByToken = async (token) => {
   );
   return rows.length ? rows[0] : null;
 };
-
+// 1b. Require the token to belong to an admin user - used to gate the debug routes
+let requireAdmin = async (query) => {
+  let token = query && query.token;
+  if (!token) return false;
+  let user = await getUserByToken(token);
+  if (!user) return false;
+  return user.isadmin === 'Y';
+};
 // 2. Get active game for user
 let getActiveGame = async (userid) => {
   let [rows] = await connection.execute(
@@ -918,41 +925,50 @@ function isEmpty(obj) {
 }
 
 // My Routing Function ****** STUDENT MAY EDIT **********
+let myRoutingFunction = async (res,method,path,query,body) => {
 
-let myRoutingFunction = (res,method,path,query,body) => {
-
-	// conditional statements go here.
-	// look at the path and method and return the output from the 
-	// correct supporting function.
 	if (method == "POST" && path == "login"){
         return postLogin(res,body);
     }
-	
+
 	if (method == "GET" && path == "debugusers"){
+        if (!(await requireAdmin(query))) {
+            return formatres(res, "Forbidden: admin access required.", 403);
+        }
         return getUsers(res, features, 200);
     }
 
     if (method == "GET" && path == "debuglogins"){
+        if (!(await requireAdmin(query))) {
+            return formatres(res, "Forbidden: admin access required.", 403);
+        }
         return getLogins(res,query);
     }
 
     if (method == "GET" && path == "debuggames"){
+        if (!(await requireAdmin(query))) {
+            return formatres(res, "Forbidden: admin access required.", 403);
+        }
         return getGames(res,query);
     }
 
     if (method == "GET" && path == "debuggameprogress"){
+        if (!(await requireAdmin(query))) {
+            return formatres(res, "Forbidden: admin access required.", 403);
+        }
         return getGameProgress(res,query);
     }
 
     if (method == "GET" && path == "debugleaderboard"){
+        if (!(await requireAdmin(query))) {
+            return formatres(res, "Forbidden: admin access required.", 403);
+        }
         return getLeaderboard(res,query);
     }
     if (method == "POST" && path == "signup") {
     return signup(res, body);
 }
 
-	// Simple GET request with no features specified results
-	// in a list of features / instructions
 	if (method == "GET" && path == ""){
 		return formatres(res, features, 200);
 	}
@@ -970,8 +986,6 @@ let myRoutingFunction = (res,method,path,query,body) => {
 }
 
 if (method == "PATCH" && path == "guess1") {
-  console.log("DEBUG method:", method, "path:", path);
-
   return guess1(res, body);
 }
 if (method == "PATCH" && path == "guess2") {
@@ -990,9 +1004,6 @@ if (method == "DELETE" && path == "cancelgame") {
 if (method == "GET" && path == "leaderboard") {
   return getLeaderboardTop5(res, query);
 }
-// ===========================
-// NEW TOOL ROUTES (SAFE)
-// ===========================
 if (method == "POST" && path == "gpa") {
   return toolGpa(res, body);
 }
@@ -1001,19 +1012,12 @@ if (method == "POST" && path == "budget") {
   return toolBudget(res, body);
 }
 
-// ===========================
-// ADVISOR ROUTE
-// ===========================
 if (method == "POST" && path == "advisor") {
   return advisorHandler(res, body);
 }
 
-
 	return(res);
-
-  
 }
-
 
 // event handler **** DO NOT EDIT ***********
 
