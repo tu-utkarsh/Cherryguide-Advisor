@@ -41,6 +41,17 @@ go for X" - by giving students a fast, specific first stop before they need a hu
    photo and a direct link to Google Maps - built to help a new student find things without
    already knowing where they are.
 
+## Screenshots
+
+| | |
+|---|---|
+| ![Login](screenshots/login.png) | ![Dashboard](screenshots/dashboard.png) |
+| Login screen | Dashboard after login |
+| ![Explore Campus](screenshots/explore.png) | ![GPA calculator](screenshots/gpa.png) |
+| Campus resource directory | GPA calculator with projection |
+| ![Budget calculator](screenshots/budget.png) | ![AI Advisor](screenshots/advisor.png) |
+| Budget calculator, over budget | AI Advisor, grounded in that exact budget result |
+
 ## Tech stack
 
 | Layer | Technology |
